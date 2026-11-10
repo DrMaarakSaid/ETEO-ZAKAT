@@ -21,7 +21,6 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # CORRECTION : Donne les droits d'exécution à TOUS les binaires du dossier .bin
     - name: Fix Node Binaries permissions
       run: chmod -R +x node_modules/.bin
 
