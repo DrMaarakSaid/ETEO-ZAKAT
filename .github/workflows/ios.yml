@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20' # Mise à jour vers Node 20
 
     - name: Install dependencies
       run: npm install
@@ -30,10 +30,13 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'
+        ruby-version: '3.2'
 
     - name: Install Fastlane
       run: gem install fastlane
+
+    - name: Make Fastfile executable
+      run: chmod +x ios/App/fastlane/Fastfile # CORRECTION ICI : Donne les droits d'exécution
 
     - name: Build and Sign iOS App
       env:
