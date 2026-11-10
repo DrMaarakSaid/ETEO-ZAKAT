@@ -1,0 +1,6 @@
+{
+  "appId": "com.eteo.zakat",
+  "appName": "ETEO Zakat",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

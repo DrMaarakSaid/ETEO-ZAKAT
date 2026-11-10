@@ -1,0 +1,21 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and sign the app"
+  lane :build do
+    setup_ci if ENV['CI']
+    
+    match(
+      type: "appstore",
+      readonly: true,
+      api_key_path: "fastlane/api_key.json"
+    )
+    
+    build_app(
+      workspace: "App.xcworkspace",
+      scheme: "App",
+      export_method: "app-store",
+      output_directory: "./build"
+    )
+  end
+end
