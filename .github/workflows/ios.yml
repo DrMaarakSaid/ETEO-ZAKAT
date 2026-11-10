@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20' # Mise à jour vers Node 20
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
@@ -35,8 +35,9 @@ jobs:
     - name: Install Fastlane
       run: gem install fastlane
 
+    # CORRECTION : Donne les droits d'exécution au Fastfile
     - name: Make Fastfile executable
-      run: chmod +x ios/App/fastlane/Fastfile # CORRECTION ICI : Donne les droits d'exécution
+      run: chmod +x ios/App/fastlane/Fastfile
 
     - name: Build and Sign iOS App
       env:
