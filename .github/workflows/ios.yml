@@ -21,9 +21,9 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # CORRECTION : Donne les droits d'exécution au binaire Vite
-    - name: Fix Vite permissions
-      run: chmod +x node_modules/.bin/vite
+    # CORRECTION : Donne les droits d'exécution à TOUS les binaires du dossier .bin
+    - name: Fix Node Binaries permissions
+      run: chmod -R +x node_modules/.bin
 
     - name: Build Web App
       run: npm run build
