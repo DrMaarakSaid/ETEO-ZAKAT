@@ -12,12 +12,14 @@ platform :ios do
       is_key_content_base64: false
     )
 
+    # On construit l'URL avec le token DEDANS (contourne le bug de Fastlane)
+    repo_url = "https://DrMaarakSaid:#{ENV['GITHUB_PAT_FOR_MATCH']}@github.com/DrMaarakSaid/eteo-certificats.git"
+
     match(
       type: "appstore",
       readonly: true,
       api_key: api_key,
-      git_url: "https://github.com/DrMaarakSaid/eteo-certificats.git",
-      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION"] # <-- LIGNE AJOUTÉE ICI
+      git_url: repo_url
     )
     
     build_app(
