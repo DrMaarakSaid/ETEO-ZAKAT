@@ -47,7 +47,7 @@ jobs:
         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        GITHUB_PAT_FOR_MATCH: ${{ secrets.GITHUB_PAT_FOR_MATCH }} # <-- Token BRUT (non encodé)
+        MATCH_PAT: ${{ secrets.TOKEN_MATCH }} # <-- On utilise le secret TOKEN_MATCH existant
       run: |
         cd ios/App
         fastlane build
