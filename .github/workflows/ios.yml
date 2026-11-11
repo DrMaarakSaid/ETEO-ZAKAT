@@ -41,13 +41,18 @@ jobs:
     - name: Make Fastfile executable
       run: chmod +x ios/App/fastlane/Fastfile
 
+    # ÉTAPE CRUCIALE : Configurer Git pour utiliser le token
+    - name: Configure Git credentials
+      run: |
+        git config --global credential.helper store
+        echo "https://${{ secrets.TOKEN_MATCH }}@github.com" > ~/.git-credentials
+
     - name: Build and Sign iOS App
       env:
         APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        MATCH_PAT: ${{ secrets.TOKEN_MATCH }} # <-- On utilise le secret TOKEN_MATCH existant
       run: |
         cd ios/App
         fastlane build

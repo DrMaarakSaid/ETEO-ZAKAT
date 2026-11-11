@@ -12,13 +12,11 @@ platform :ios do
       is_key_content_base64: false
     )
 
-    repo_url = "https://#{ENV['MATCH_PAT']}@github.com/DrMaarakSaid/eteo-certificats.git"
-
     match(
       type: "appstore",
       readonly: true,
       api_key: api_key,
-      git_url: repo_url
+      git_url: "https://github.com/DrMaarakSaid/eteo-certificats.git"
     )
     
     build_app(
