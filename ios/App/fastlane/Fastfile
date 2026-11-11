@@ -16,7 +16,8 @@ platform :ios do
       type: "appstore",
       readonly: true,
       api_key: api_key,
-      git_url: "https://github.com/DrMaarakSaid/eteo-certificats.git" # <-- METTEZ VOTRE URL ICI
+      git_url: "https://github.com/DrMaarakSaid/eteo-certificats.git",
+      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION"] # <-- LIGNE AJOUTÉE ICI
     )
     
     build_app(
