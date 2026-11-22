@@ -3,10 +3,19 @@ default_platform(:ios)
 platform :ios do
   desc "Soumettre l'application à l'App Store"
   lane :build do
+    setup_ci if ENV['CI'] # Crée un trousseau temporaire pour CI
+
     app_store_connect_api_key(
       key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
       issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
       key_content: ENV['APP_STORE_CONNECT_API_KEY']
+    )
+
+    # match télécharge le CERTIFICAT et le PROFIL et les installe
+    match(
+      type: "appstore",
+      readonly: true,
+      git_url: "git@github.com:DrMaarakSaid/eteo-certificats.git"
     )
 
     gym(
@@ -15,7 +24,6 @@ platform :ios do
       configuration: "Release",
       export_method: "app-store",
       clean: true,
-      skip_codesigning: true,
       export_team_id: "988DS82922",
       xcargs: "CURRENT_PROJECT_VERSION=1 MARKETING_VERSION=1.0",
       export_options: {
