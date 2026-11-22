@@ -41,11 +41,14 @@ jobs:
     - name: Make Fastfile executable
       run: chmod +x ios/App/fastlane/Fastfile
 
-    # ÉTAPE CRUCIALE : Configurer Git pour utiliser le token
-    - name: Configure Git credentials
+    # ▼▼▼ NOUVELLE ÉTAPE SSH ▼▼▼
+    - name: Setup SSH for Match
       run: |
-        git config --global credential.helper store
-        echo "https://${{ secrets.TOKEN_MATCH }}@github.com" > ~/.git-credentials
+        mkdir -p ~/.ssh
+        echo "${{ secrets.MATCH_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+    # ▲▲▲ FIN DE LA NOUVELLE ÉTAPE ▲▲▲
 
     - name: Build and Sign iOS App
       env:
