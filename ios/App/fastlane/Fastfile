@@ -1,30 +1,37 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build and sign the app"
+  desc "Soumettre l'application à l'App Store"
   lane :build do
-    setup_ci if ENV['CI']
-    
-    api_key = app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
-      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_content: ENV["APP_STORE_CONNECT_API_KEY"],
-      is_key_content_base64: false
+    app_store_connect_api_key(
+      key_id: ENV['APPSTORE_KEY_ID'],
+      issuer_id: ENV['APPSTORE_ISSUER_ID'],
+      key_content: ENV['APPSTORE_P8']
     )
 
-    match(
-      type: "appstore",
-      readonly: true,
-      api_key: api_key,
-      git_url: "https://github.com/DrMaarakSaid/eteo-certificats.git",
-      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
-    )
-    
-    build_app(
-      workspace: "App.xcworkspace",
+    gym(
       scheme: "App",
+      project: "ios/App/App.xcodeproj",
+      configuration: "Release",
       export_method: "app-store",
-      output_directory: "./build"
+      clean: true,
+      skip_codesigning: true,
+      export_team_id: "988DS82922",
+      xcargs: "CURRENT_PROJECT_VERSION=1 MARKETING_VERSION=1.0",
+      export_options: {
+        method: "app-store",
+        signingStyle: "manual",
+        provisioningProfiles: {
+          "com.eteo.zakat" => "ETEO_Zakat_Profile" # <-- Vérifiez ce nom dans votre compte Apple
+        }
+      }
+    )
+
+    upload_to_app_store(
+      skip_metadata: true, 
+      skip_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false
     )
   end
 end
