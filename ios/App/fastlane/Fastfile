@@ -3,15 +3,15 @@ default_platform(:ios)
 platform :ios do
   desc "Soumettre l'application à l'App Store"
   lane :build do
-    setup_ci if ENV['CI'] # Crée un trousseau temporaire pour CI
+    setup_ci if ENV['CI']
 
     app_store_connect_api_key(
       key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
       issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
-      key_content: ENV['APP_STORE_CONNECT_API_KEY']
+      key_content: ENV['APP_STORE_CONNECT_API_KEY'],
+      is_key_content_base64: true
     )
 
-    # match télécharge le CERTIFICAT et le PROFIL et les installe
     match(
       type: "appstore",
       readonly: true,
