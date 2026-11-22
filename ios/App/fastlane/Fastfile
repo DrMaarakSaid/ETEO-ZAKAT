@@ -11,7 +11,7 @@ platform :ios do
 
     gym(
       scheme: "App",
-      project: "ios/App/App.xcodeproj",
+      project: "App.xcodeproj",
       configuration: "Release",
       export_method: "app-store",
       clean: true,
