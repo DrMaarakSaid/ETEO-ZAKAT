@@ -4,9 +4,9 @@ platform :ios do
   desc "Soumettre l'application à l'App Store"
   lane :build do
     app_store_connect_api_key(
-      key_id: ENV['APPSTORE_KEY_ID'],
-      issuer_id: ENV['APPSTORE_ISSUER_ID'],
-      key_content: ENV['APPSTORE_P8']
+      key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+      issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+      key_content: ENV['APP_STORE_CONNECT_API_KEY']
     )
 
     gym(
@@ -22,7 +22,7 @@ platform :ios do
         method: "app-store",
         signingStyle: "manual",
         provisioningProfiles: {
-          "com.eteo.zakat" => "ETEO_Zakat_Profile" # <-- Vérifiez ce nom dans votre compte Apple
+          "com.eteo.zakat" => "ETEO_Zakat_Profile"
         }
       }
     )
